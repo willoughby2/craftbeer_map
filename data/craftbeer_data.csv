@@ -1,0 +1,50 @@
+id,state_name,state_initial,breweries_2011,breweries_2012,breweries_2013,breweries_2014,breweries_2015,breweries_2016
+1,Alabama,AL,6,10,13,19,24,28
+2,Arizona,AZ,34,45,47,53,78,86
+3,Arkansas,AR,6,10,13,19,26,28
+4,California,CA,270,319,381,431,518,623
+5,Colorado,CO,126,151,175,235,284,334
+6,Connecticut,CT,16,21,23,27,35,49
+7,Delaware,DE,7,9,10,11,15,19
+8,District of Columbia,DC,6,6,9,8,10,12
+9,Florida,FL,45,57,66,111,151,195
+10,Georgia,GA,21,22,28,40,45,53
+11,Idaho,ID,24,31,34,43,50,53
+12,Illinois,IL,54,68,83,103,157,181
+13,Indiana,IN,46,55,63,80,115,127
+14,Iowa,IA,27,34,40,46,58,70
+15,Kansas,KS,17,19,20,22,26,31
+16,Kentucky,KY,11,14,15,18,24,34
+17,Louisiana,LA,8,8,11,15,20,26
+18,Maine,ME,34,37,47,52,59,77
+19,Maryland,MD,25,31,34,40,60,65
+20,Massachusetts,MA,45,49,57,61,84,110
+21,Michigan,MI,105,122,131,159,205,222
+22,Minnesota,MN,35,47,52,73,105,112
+23,Mississippi,MS,2,3,4,7,8,9
+24,Missouri,MO,43,45,49,55,71,78
+25,Montana,MT,33,36,39,44,49,68
+26,Nebraska,NE,18,19,22,32,33,42
+27,Nevada,NV,18,22,22,25,34,37
+28,New Hampshire,NH,15,19,22,26,44,54
+29,New Jersey,NJ,24,25,26,32,51,82
+30,New Mexico,NM,25,28,31,36,45,57
+31,New York,NY,75,92,165,181,208,269
+32,North Carolina,NC,59,71,91,101,161,200
+33,North Dakota,ND,2,4,6,6,9,10
+34,Ohio,OH,45,58,76,110,143,177
+35,Oklahoma,OK,10,10,13,10,14,20
+36,Oregon,OR,124,145,181,216,228,243
+37,Pennsylvania,PA,88,104,108,136,178,205
+38,Rhode Island,RI,6,8,8,11,14,15
+39,South Carolina,SC,16,16,20,31,36,50
+40,South Dakota,SD,5,7,10,12,14,15
+41,Tennessee,TN,24,30,35,39,52,66
+42,Texas,TX,59,84,96,117,189,201
+43,Utah,UT,16,16,16,20,22,27
+44,Vermont,VT,22,27,29,40,44,50
+45,Virginia,VA,40,50,61,78,124,164
+46,Washington,WA,136,170,201,256,305,334
+47,West Virginia,WV,5,6,7,11,12,15
+48,Wisconsin,WI,73,84,90,97,121,138
+49,Wyoming,WY,13,15,18,22,23,23
