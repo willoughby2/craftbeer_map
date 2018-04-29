@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
 /*eslint-env browser*/
-L.map = function (id, options) {
-    return new L.Map(id, options);
-};
 
 var map = L.map('mapid').setView([34.45, -96.77], 4);
 
