@@ -33,9 +33,11 @@ function mapSetup(){
 function getData(map){
     $.ajax({
         dataType: "json",
-        url: "data/beer_consumption.geojson",
+        url: "data/beer_consumption2.geojson",
+        interactive: false,
         success: function(response){
                 L.geoJSON(response).addTo(map);
+                console.log(response);
         }
     });
 }
