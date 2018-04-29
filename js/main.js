@@ -17,6 +17,8 @@ function mapSetup(){
     }).addTo(map);
     
     getData(map);
+    
+    getTopBrewData(map);
 }
 
 function getData(map){
@@ -32,6 +34,15 @@ function getData(map){
             });
         }
     });
+}
+
+function getTopBrewData(map){
+    $.ajax("data/topbreweries.geojson", {
+        dataType: "json",
+        success: function(response){
+            L.geoJSON(response).addTo(map);
+        }
+    })
 }
 
 $(document).ready(mapSetup);
