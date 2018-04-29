@@ -18,12 +18,9 @@ function mapSetup(){
     
     getData(map);
     
-    getTopBrewData(map);
+    getTopBrewData(map, top);
     
-    getTotalBrewData(map);
-    
-    var top;
-    var total;
+    getTotalBrewData(map, total);
     
     var overlayLayers = {
         "StateBreweries": total,
@@ -31,8 +28,6 @@ function mapSetup(){
     };
     
     L.control.layers(overlayLayers).addTo(map);
-    
-    console.log(top);
 }
 
 function getData(map){
