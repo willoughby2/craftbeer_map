@@ -21,6 +21,18 @@ function mapSetup(){
     getTopBrewData(map);
     
     getTotalBrewData(map);
+    
+    var top;
+    var total;
+    
+    var overlayLayers = {
+        "StateBreweries": total,
+        "TopBreweries": top
+    };
+    
+    L.control.layers(overlayLayers).addTo(map);
+    
+    console.log(top);
 }
 
 function getData(map){
@@ -33,20 +45,20 @@ function getData(map){
     });
 }
 
-function getTopBrewData(map){
+function getTopBrewData(map, top){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
         success: function(response){
-            L.geoJSON(response).addTo(map);
+            var top = L.geoJSON(response);
         }
     })
 }
 
-function getTotalBrewData(map){
+function getTotalBrewData(map, total){
     $.ajax("data/breweries_state.geojson", {
         dataType: "json",
         success: function(response){
-            L.geoJSON(response).addTo(map);
+            var total = L.geoJSON(response);
         }
     })
 }
