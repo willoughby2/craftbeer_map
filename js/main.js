@@ -33,7 +33,7 @@ function mapSetup(){
 function getData(map){
     $.ajax({
         dataType: "json",
-        url: "data/beerconsumption.geojson",
+        url: "data/beer_consumption.geojson",
         success: function(response){
                 L.geoJSON(response).addTo(map);
         }
