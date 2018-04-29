@@ -19,19 +19,16 @@ function mapSetup(){
     getData(map);
     
     getTopBrewData(map);
+    
+    getTotalBrewData(map);
 }
 
 function getData(map){
-    var consumption = new L.geoJSON();
-    consumption.addTo(map);
-    
     $.ajax({
         dataType: "json",
         url: "data/beerconsumption.geojson",
-        success: function(data){
-            $(data.features).each(function(key, data) {
-                consumption.addData(data);
-            });
+        success: function(response){
+                L.geoJSON(response).addTo(map);
         }
     });
 }
@@ -44,5 +41,15 @@ function getTopBrewData(map){
         }
     })
 }
+
+function getTotalBrewData(map){
+    $.ajax("data/breweries_state.geojson", {
+        dataType: "json",
+        success: function(response){
+            L.geoJSON(response).addTo(map);
+        }
+    })
+}
+
 
 $(document).ready(mapSetup);
