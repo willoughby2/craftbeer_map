@@ -18,9 +18,9 @@ function mapSetup(){
     
     getData(map);
     
-    getTopBrewData(map, top);
+    getTopBrewData(map);
     
-    getTotalBrewData(map, total);
+    getTotalBrewData(map);
     
     var overlayLayers = {
         "StateBreweries": total,
@@ -44,7 +44,20 @@ function getTopBrewData(map, top){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
         success: function(response){
-            var top = L.geoJSON(response);
+            var topMarker = {
+                radius: 8,
+                fillColor: "#ff7800",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+            
+            var top = L.geoJSON(response, {
+                pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, topMarker);
+                }
+            });
         }
     })
 }
@@ -53,7 +66,20 @@ function getTotalBrewData(map, total){
     $.ajax("data/breweries_state.geojson", {
         dataType: "json",
         success: function(response){
-            var total = L.geoJSON(response);
+            var totalMarker = {
+                radius: 8,
+                fillColor: "yellow",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }
+            
+            var total = L.geoJSON(response, {
+                pointToLayer: function (feature, latlng){
+                    return L.circleMarker(latlng, totalMarker);
+                }
+            }).addTo(map);
         }
     })
 }
