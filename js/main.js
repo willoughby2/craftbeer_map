@@ -36,8 +36,9 @@ function getData(map){
         url: "data/beer_consumption2.geojson",
         interactive: false,
         success: function(response){
-                L.geoJSON(response).addTo(map);
-                console.log(response);
+                var rewind = geojsonRewind(response, clockwise);
+                L.geoJSON(rewind).addTo(map);
+                console.log(rewind);
         }
     });
 }
