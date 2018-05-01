@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
 /*eslint-env browser*/
-L.map = function (id, options) {
-    return new L.Map(id, options);
-};
 
 function mapSetup(){
     // set the view for the contiguous United States
@@ -16,29 +13,30 @@ function mapSetup(){
     accessToken: 'pk.eyJ1Ijoid2lsbG91Z2hieTIiLCJhIjoiY2lzc2J5aWtpMDc2ODJ5cGh5MTlxNjczeSJ9.7FKJ5Mye4bhoImWAeCRhZg'
     }).addTo(map);
     
-    getData(map);
+    var choropleth = new L.geoJSON().addTo(map);
+    var total = new L.geoJSON().addTo(map);
+    var top = new L.geoJSON().addTo(map);
     
-    getTopBrewData(map);
-    
-    getTotalBrewData(map);
+    getData(map, choropleth);
+    getTopBrewData(map, top);
+    getTotalBrewData(map, total);
     
     var overlayLayers = {
+        "Beer Consumption per Capita": choropleth,
         "StateBreweries": total,
         "TopBreweries": top
     };
     
-    L.control.layers(overlayLayers).addTo(map);
+    L.control.layers(null, overlayLayers).addTo(map);
 }
 
-function getData(map){
+function getData(map, choropleth){
     $.ajax({
         dataType: "json",
-        url: "data/beer_consumption2.geojson",
+        url: "data/map_beercon.geojson",
         interactive: false,
         success: function(response){
-                var rewind = geojsonRewind(response, clockwise);
-                L.geoJSON(rewind).addTo(map);
-                console.log(rewind);
+                var choropleth = L.geoJSON(response).addTo(map);
         }
     });
 }
@@ -60,7 +58,7 @@ function getTopBrewData(map, top){
                 pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, topMarker);
                 }
-            });
+            }).addTo(map);
         }
     })
 }
