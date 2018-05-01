@@ -13,5 +13,5 @@ header {
 }
 
 #choropleth.leaflet-interactive {
-    z-index: -99;
+    z-index: 0;
 }

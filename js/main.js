@@ -36,9 +36,7 @@ function getData(map, choropleth){
         url: "data/map_beercon.geojson",
         success: function(response){
                 var choropleth = L.geoJSON(response).addTo(map);
-                choropleth.eachLayer(function (layer) {
-                    layer._path.id = 'choropleth';
-                });
+                choropleth.bringToBack();
         }
     });
 }
@@ -61,6 +59,7 @@ function getTopBrewData(map, top){
                     return L.circleMarker(latlng, topMarker);
                 }
             }).addTo(map);
+            top.bringToFront();
         }
     })
 }
