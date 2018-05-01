@@ -34,9 +34,11 @@ function getData(map, choropleth){
     $.ajax({
         dataType: "json",
         url: "data/map_beercon.geojson",
-        interactive: false,
         success: function(response){
                 var choropleth = L.geoJSON(response).addTo(map);
+                choropleth.eachLayer(function (layer) {
+                    layer._path.id = 'choropleth';
+                });
         }
     });
 }

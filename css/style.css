@@ -12,3 +12,6 @@ header {
     float: left;
 }
 
+#choropleth.leaflet-interactive {
+    z-index: -99;
+}
