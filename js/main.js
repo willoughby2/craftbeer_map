@@ -13,7 +13,7 @@ function mapSetup(){
     accessToken: 'pk.eyJ1Ijoid2lsbG91Z2hieTIiLCJhIjoiY2lzc2J5aWtpMDc2ODJ5cGh5MTlxNjczeSJ9.7FKJ5Mye4bhoImWAeCRhZg'
     }).addTo(map);
     
-    var choropleth = new L.geoJSON().addTo(map);
+    var choropleth = new L.geoJSON();
     var total = new L.geoJSON().addTo(map);
     var top = new L.geoJSON().addTo(map);
     
@@ -36,7 +36,7 @@ function getData(map, choropleth){
         url: "data/map_beercon.geojson",
         interactive: false,
         success: function(response){
-                var choropleth = L.geoJSON(response).addTo(map);
+                var choropleth = L.geoJSON(response);
         }
     });
 }
