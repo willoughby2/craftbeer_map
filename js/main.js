@@ -35,10 +35,30 @@ function getData(map, choropleth){
         dataType: "json",
         url: "data/map_beercon.geojson",
         success: function(response){
-                var choropleth = L.geoJSON(response).addTo(map);
+                var choropleth = L.geoJSON(response, {style: style}).addTo(map);
                 choropleth.bringToBack();
         }
     });
+}
+
+function getChoroplethColor(c) {
+    return c > 1.6 ? '#993404' :
+           c > 1.5 ? '#d95f0e' :
+           c > 1.3 ? '#fe9929' :
+           c > 1.15 ? '#fec44f' :
+           c > .93 ? '#fee391' :
+                      '#ffffd4';
+}
+
+function style(feature) {
+    return {
+        fillColor: getChoroplethColor(feature.properties.beer_2011),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
 }
 
 function getTopBrewData(map, top){
