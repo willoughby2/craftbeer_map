@@ -65,43 +65,118 @@ function getTopBrewData(map, top){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
         success: function(response){
-            var topMarker = {
-                radius: 8,
-                fillColor: "#ff7800",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            };
+            var topMarker = L.icon({
+                options: {
+                    iconUrl: 'lib/images/Beer-icon.png',
+                    iconSize: [30,30],
+                    iconAnchor: [0,0]
+                }
+            });
             
             var top = L.geoJSON(response, {
                 pointToLayer: function(feature, latlng) {
-                    return L.circleMarker(latlng, topMarker);
+                    return L.marker(latlng, topMarker);
                 }
             }).addTo(map);
-            top.bringToFront();
         }
     })
 }
+
+function calcTotalRadius(attValue) {
+    var scaleFactor = 5;
+    var area = attValue * scaleFactor;
+    var radius = Math.sqrt(area/Math.PI);
+
+    return radius;
+}
+
+function createTotalSymbols(data, map, attributes){
+    L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+            return pointToLayer(feature, latlng, attributes);
+        }
+    }).addTo(map);
+    
+}
+
+function updateTotalSymbols(map, attribute) {
+    map.eachLayer(function(layer){
+        if (layer.feature && layer.feature.properties[attribute]){
+            
+            var props = layer.feature.properties;
+            
+            var radius = calcTotalRadius(props[attribute]);
+            layer.setRadius(radius);
+            
+            var popupContent =  "<br><b>State: </b>" + props.name;
+            
+            var year = attribute.split("_")[1];
+            
+            //I truncated the ridership numbers to make them easier to read.
+            popupContent += "<p><b>Craft Breweries in " + year + ":</b> " + props[attribute];
+            
+            layer.bindPopup(popupContent, {
+                offset: new L.Point(0,0)
+            });
+        }
+    })
+}
+
+function processData(data){
+
+    var attributes = [];
+    
+    var properties = data.features[0].properties;
+    
+    for (var attribute in properties){
+        if (attribute.indexOf("breweries") > -1){
+            attributes.push(attribute);
+        }
+    }
+
+    return attributes;
+}
+
+function pointToLayer(feature, latlng, attributes){
+
+    var attribute = "breweries_2011";
+    
+    //I chose a red color to make it pop against the grayscale map
+    var options = {
+        radius: 8,
+        fillColor: "#cd2626",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.7,
+    };
+    
+    var attValue = Number(feature.properties[attribute]);
+    
+    options.radius = calcTotalRadius(attValue);
+    
+    //creates the circle markers using options above
+    var layer = L.circleMarker(latlng, options);
+    
+    //creates the popup
+    var popupContent = "<br><b>State: </b>" + feature.properties.state;
+    
+    //adds the popup info to the circle marker layer
+    layer.bindPopup(popupContent);
+    
+    return layer;
+     
+}
+
 
 function getTotalBrewData(map, total){
     $.ajax("data/breweries_state.geojson", {
         dataType: "json",
         success: function(response){
-            var totalMarker = {
-                radius: 8,
-                fillColor: "yellow",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            }
+            var attributes = processData(response);
             
-            var total = L.geoJSON(response, {
-                pointToLayer: function (feature, latlng){
-                    return L.circleMarker(latlng, totalMarker);
-                }
-            }).addTo(map);
+            createTotalSymbols(response, map);
+
         }
     })
 }
