@@ -61,7 +61,7 @@ function style(feature) {
     };
 }
 
-function getTopBrewData(map, top){
+function getTopBrewData(map, top, attributes){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
         success: function(response){
@@ -75,6 +75,9 @@ function getTopBrewData(map, top){
                 pointToLayer: function(feature, latlng) {
                     var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
                     return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
+                },
+                filter: function(feature) {
+                    if (feature.properties.year === attributes) return true;
                 }
             }).addTo(map);
         }
@@ -135,7 +138,7 @@ function processData(data){
     return attributes;
 }
 
-function createSequenceControls(map){
+function createSequenceControls(map, attributes){
     //create range input element (slider)
     $('#panel').append('<input class="range-slider" type="range">');
     
@@ -152,7 +155,7 @@ function createSequenceControls(map){
     });
     
     $('.skip').click(function(){
-        //added to close popups before the slider updates the propsymbols layer
+
         map.closePopup();
         
         var index = $('.range-slider').val();
@@ -167,8 +170,8 @@ function createSequenceControls(map){
         
         $('.range-slider').val(index);
         
-           //slider will update symbols on the map and the legend
-        updatePropSymbols(map, attributes[index]);
+        getTopBrewData(map, attributes[index]);
+        updateTotalSymbols(map, attributes[index]);
         updateLegend(map,attributes[index]);
         
     });
@@ -188,9 +191,6 @@ function pointToLayer(feature, latlng, attributes){
 
     var attribute = attributes[0];
     
-    console.log(attribute);
-    
-    //I chose a red color to make it pop against the grayscale map
     var options = {
         radius: 8,
         fillColor: "#cd2626",

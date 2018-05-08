@@ -1,24 +1,24 @@
 id,year,rank,brewery_name,city,state,latitude,longitude
-1,2011,1,Boston Beer Co.,Boston,MA,42.3146,-71.103
-2,2011,2,Sierra Nevada Brewing Co.,Chico,CA,39.7285,-121.8375
-3,2011,3,New Belgium Brewing Co.,Fort Collins,CO,40.5853,-105.0844
-4,2011,4,The Gambrinus Company,San Antonio,TX,29.4241,-98.4936
-5,2011,5,Deschutes Brewery,Bend,OR,44.0582,-121.3153
-6,2011,6,Matt Brewing Co. ,Utica,NY,43.1009,-75.2327
-7,2011,7,"Bell's Brewery, Inc.",Galesburg,MI,42.2905,-85.4175
-8,2011,8,Harpoon Brewery,Boston,MA,42.3601,-71.0589
-9,2011,9,Laquintas Brewing Co.,Petaluma,CA,38.2324,-122.6367
-10,2011,10,Boulevard Brewing Co. ,Kansas City,MO,39.0997,-94.5786
-11,2012,1,Boston Beer Co.,Boston,MA,42.3146,-71.103
-12,2012,2,Sierra Nevada Brewing Co.,Chico,CA,39.7285,-121.8375
-13,2012,3,New Belgium Brewing Co.,Fort Collins,CO,40.5853,-105.0844
-14,2012,4,The Gambrinus Company,San Antonio,TX,29.4241,-98.4936
-15,2012,5,Deschutes Brewery,Bend,OR,44.0582,-121.3153
-16,2012,6,Laquintas Brewing Co.,Petaluma,CA,38.2324,-122.6367
-17,2012,7,"Bell's Brewery, Inc.",Galesburg,MI,42.2905,-85.4175
-18,2012,8,Matt Brewing Co. ,Utica,NY,43.1009,-75.2327
-19,2012,9,Harpoon Brewery,Boston,MA,42.3601,-71.0589
-20,2012,10,Stone Brewing Co.,Escondido,CA,33.1192,-117.0864
+1,breweries_2011,1,Boston Beer Co.,Boston,MA,42.3146,-71.103
+2,breweries_2011,2,Sierra Nevada Brewing Co.,Chico,CA,39.7285,-121.8375
+3,breweries_2011,3,New Belgium Brewing Co.,Fort Collins,CO,40.5853,-105.0844
+4,breweries_2011,4,The Gambrinus Company,San Antonio,TX,29.4241,-98.4936
+5,breweries_2011,5,Deschutes Brewery,Bend,OR,44.0582,-121.3153
+6,breweries_2011,6,Matt Brewing Co. ,Utica,NY,43.1009,-75.2327
+7,breweries_2011,7,"Bell's Brewery, Inc.",Galesburg,MI,42.2905,-85.4175
+8,breweries_2011,8,Harpoon Brewery,Boston,MA,42.3601,-71.0589
+9,breweries_2011,9,Laquintas Brewing Co.,Petaluma,CA,38.2324,-122.6367
+10,breweries_2011,10,Boulevard Brewing Co. ,Kansas City,MO,39.0997,-94.5786
+11,breweries_2012,1,Boston Beer Co.,Boston,MA,42.3146,-71.103
+12,breweries_2012,2,Sierra Nevada Brewing Co.,Chico,CA,39.7285,-121.8375
+13,breweries_2012,3,New Belgium Brewing Co.,Fort Collins,CO,40.5853,-105.0844
+14,breweries_2012,4,The Gambrinus Company,San Antonio,TX,29.4241,-98.4936
+15,breweries_2012,5,Deschutes Brewery,Bend,OR,44.0582,-121.3153
+16,breweries_2012,6,Laquintas Brewing Co.,Petaluma,CA,38.2324,-122.6367
+17,breweries_2012,7,"Bell's Brewery, Inc.",Galesburg,MI,42.2905,-85.4175
+18,breweries_2012,8,Matt Brewing Co. ,Utica,NY,43.1009,-75.2327
+19,breweries_2012,9,Harpoon Brewery,Boston,MA,42.3601,-71.0589
+20,breweries_2012,10,Stone Brewing Co.,Escondido,CA,33.1192,-117.0864
 21,2013,1,Boston Beer Co.,Boston,MA,42.3146,-71.103
 22,2013,2,Sierra Nevada Brewing Co.,Chico,CA,39.7285,-121.8375
 23,2013,3,New Belgium Brewing Co.,Fort Collins,CO,40.5853,-105.0844
