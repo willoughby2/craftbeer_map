@@ -66,16 +66,15 @@ function getTopBrewData(map, top){
         dataType: "json",
         success: function(response){
             var topMarker = L.icon({
-                options: {
-                    iconUrl: 'lib/images/Beer-icon.png',
-                    iconSize: [30,30],
-                    iconAnchor: [0,0]
-                }
+                    iconUrl: 'lib/images/Beer-icon3.png',
+                    iconSize: [35,35],
+                    iconAnchor: [10,15]
             });
             
             var top = L.geoJSON(response, {
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, topMarker);
+                    var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
+                    return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
                 }
             }).addTo(map);
         }
@@ -159,7 +158,7 @@ function pointToLayer(feature, latlng, attributes){
     var layer = L.circleMarker(latlng, options);
     
     //creates the popup
-    var popupContent = "<br><b>State: </b>" + feature.properties.state;
+    var popupContent = "<br><b>State: </b>" + feature.properties.state_name;
     
     //adds the popup info to the circle marker layer
     layer.bindPopup(popupContent);
