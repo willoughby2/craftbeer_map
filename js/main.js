@@ -52,8 +52,10 @@ function getTopBrewData(map, top){
 }
 
 function layerFilter (feature, attributes) {
-    if (feature.properties.year === '2015') {return true;}
-    else if (feature.properties.year !== '2015') {return false;}
+    console.log(feature.properties.year);
+    console.log(attributes);
+    if (feature.properties.year === attributes) {return true;}
+    else if (feature.properties.year !== attributes) {return false;}
 }
 
 function getChoroplethColor(c) {
