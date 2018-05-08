@@ -3,7 +3,7 @@
 
 function mapSetup(){
     // set the view for the contiguous United States
-    var map = L.map('mapid').setView([34.45, -96.77], 4);
+    var map = L.map('mapid').setView([37, -96.77], 4);
 
     //I chose mapbox.light map since its grayscale would all my icons to stand out. 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -136,6 +136,23 @@ function processData(data){
     return attributes;
 }
 
+function createSequenceControls(map){
+    //create range input element (slider)
+    $('#panel').append('<input class="range-slider" type="range">');
+    
+    $('#panel').append('<button class="skip" id="reverse">Reverse</button>');
+    $('#panel').append('<button class="skip" id="forward">Skip</button>');
+    $('#reverse').html('<img width="50%" src="lib/images/backward.png">');
+    $('#forward').html('<img width="50%" src="lib/images/forward.png">');
+    
+    $('.range-slider').attr({
+        max: 5,
+        min: 0,
+        value: 0,
+        step: 1
+    });
+};
+
 function pointToLayer(feature, latlng, attributes){
 
     var attribute = "breweries_2011";
@@ -174,7 +191,8 @@ function getTotalBrewData(map, total){
         success: function(response){
             var attributes = processData(response);
             
-            createTotalSymbols(response, map);
+            createTotalSymbols(response, map, attributes);
+            createSequenceControls(map, attributes);
 
         }
     })

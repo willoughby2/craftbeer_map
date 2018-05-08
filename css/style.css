@@ -15,3 +15,36 @@ header {
 #choropleth.leaflet-interactive {
     z-index: 0;
 }
+
+#panel{
+    z-index: 2000;
+    height: auto;
+    width: 270px;
+    background-color: black;
+    opacity: .4;
+    border-radius: 2px;
+    position: relative;
+    padding: 3px;
+    bottom: 40px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.range-slider {
+width: 150px;
+}
+
+
+#forward {
+    float: right;
+    display: inline-block;
+    width: 20%;
+}
+
+
+#reverse {
+    float: left;
+    display: inline-block;
+    width: 20%
+}
