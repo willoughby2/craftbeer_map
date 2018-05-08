@@ -107,11 +107,10 @@ function updateTotalSymbols(map, attribute) {
             var radius = calcTotalRadius(props[attribute]);
             layer.setRadius(radius);
             
-            var popupContent =  "<br><b>State: </b>" + props.name;
+            var popupContent =  "<br><b>State: </b>" + props.state_name;
             
             var year = attribute.split("_")[1];
             
-            //I truncated the ridership numbers to make them easier to read.
             popupContent += "<p><b>Craft Breweries in " + year + ":</b> " + props[attribute];
             
             layer.bindPopup(popupContent, {
@@ -132,7 +131,7 @@ function processData(data){
             attributes.push(attribute);
         }
     }
-
+    
     return attributes;
 }
 
@@ -151,11 +150,45 @@ function createSequenceControls(map){
         value: 0,
         step: 1
     });
+    
+    $('.skip').click(function(){
+        //added to close popups before the slider updates the propsymbols layer
+        map.closePopup();
+        
+        var index = $('.range-slider').val();
+        
+        if ($(this).attr('id') == 'forward'){
+            index++;
+            index = index > 5 ? 0: index;
+        } else if ($(this).attr('id') == 'reverse') {
+            index--;
+            index = index < 0 ? 5: index;
+        }
+        
+        $('.range-slider').val(index);
+        
+           //slider will update symbols on the map and the legend
+        updatePropSymbols(map, attributes[index]);
+        updateLegend(map,attributes[index]);
+        
+    });
+    
+    $('.range-slider').on('input', function(){
+        
+        var index= $(this).val();
+        
+        updateTotalSymbols(map, attributes[index]);
+        updateLegend(map,attributes[index]);
+        
+    }); 
+
 };
 
 function pointToLayer(feature, latlng, attributes){
 
-    var attribute = "breweries_2011";
+    var attribute = attributes[0];
+    
+    console.log(attribute);
     
     //I chose a red color to make it pop against the grayscale map
     var options = {
