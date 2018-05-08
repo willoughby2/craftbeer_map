@@ -61,10 +61,10 @@ function style(feature) {
     };
 }
 
-function getTopBrewData(map, top, attributes){
+function getTopBrewData(map, attributes){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
-        success: function(response){
+        success: function(response, attributes){
             var topMarker = L.icon({
                     iconUrl: 'lib/images/Beer-icon3.png',
                     iconSize: [35,35],
@@ -76,7 +76,9 @@ function getTopBrewData(map, top, attributes){
                     var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
                     return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
                 },
-                filter: function(feature) {
+                filter: function(feature, attributes) {
+                    console.log(feature.properties.year);
+                    console.log(attributes);
                     if (feature.properties.year === attributes) return true;
                 }
             }).addTo(map);
@@ -172,7 +174,6 @@ function createSequenceControls(map, attributes){
         
         getTopBrewData(map, attributes[index]);
         updateTotalSymbols(map, attributes[index]);
-        updateLegend(map,attributes[index]);
         
     });
     
