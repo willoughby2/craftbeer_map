@@ -30,17 +30,6 @@ function mapSetup(){
     L.control.layers(null, overlayLayers).addTo(map);
 }
 
-function getData(map, choropleth){
-    $.ajax({
-        dataType: "json",
-        url: "data/map_beercon.geojson",
-        success: function(response){
-                var choropleth = L.geoJSON(response, {style: style}).addTo(map);
-                choropleth.bringToBack();
-        }
-    });
-}
-
 function getChoroplethColor(c) {
     return c > 1.6 ? '#993404' :
            c > 1.5 ? '#d95f0e' :
@@ -59,31 +48,6 @@ function style(feature) {
         dashArray: '3',
         fillOpacity: 0.7
     };
-}
-
-function getTopBrewData(map){
-    $.ajax("data/topbreweries.geojson", {
-        dataType: "json",
-        success: function(response){
-            var topMarker = L.icon({
-                    iconUrl: 'lib/images/Beer-icon3.png',
-                    iconSize: [35,35],
-                    iconAnchor: [10,15]
-            });
-            
-            var top = L.geoJSON(response, {
-                pointToLayer: function(feature, latlng) {
-                    var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
-                    return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
-                },
-                filter: function(feature, attributes) {
-                    console.log(feature.properties.year);
-                    if (feature.properties.year === attributes) {return true;}
-                    else if (feature.properties.year !== attributes) {return false;}
-                }
-            }).addTo(map);
-        }
-    })
 }
 
 function calcTotalRadius(attValue) {
@@ -218,6 +182,16 @@ function pointToLayer(feature, latlng, attributes){
      
 }
 
+function getData(map, choropleth){
+    $.ajax({
+        dataType: "json",
+        url: "data/map_beercon.geojson",
+        success: function(response){
+                var choropleth = L.geoJSON(response, {style: style}).addTo(map);
+                choropleth.bringToBack();
+        }
+    });
+}
 
 function getTotalBrewData(map, total){
     $.ajax("data/breweries_state.geojson", {
@@ -232,5 +206,29 @@ function getTotalBrewData(map, total){
     })
 }
 
+function getTopBrewData(map){
+    $.ajax("data/topbreweries.geojson", {
+        dataType: "json",
+        success: function(response){
+            var topMarker = L.icon({
+                    iconUrl: 'lib/images/Beer-icon3.png',
+                    iconSize: [35,35],
+                    iconAnchor: [10,15]
+            });
+            
+            var top = L.geoJSON(response, {
+                pointToLayer: function(feature, latlng) {
+                    var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
+                    return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
+                },
+                filter: function(feature, attributes) {
+                    console.log(feature.properties.year);
+                    if (feature.properties.year === attributes) {return true;}
+                    else if (feature.properties.year !== attributes) {return false;}
+                }
+            }).addTo(map);
+        }
+    })
+}
 
 $(document).ready(mapSetup);
