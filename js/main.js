@@ -61,10 +61,10 @@ function style(feature) {
     };
 }
 
-function getTopBrewData(map, attributes){
+function getTopBrewData(map){
     $.ajax("data/topbreweries.geojson", {
         dataType: "json",
-        success: function(response, attributes){
+        success: function(response){
             var topMarker = L.icon({
                     iconUrl: 'lib/images/Beer-icon3.png',
                     iconSize: [35,35],
@@ -78,8 +78,8 @@ function getTopBrewData(map, attributes){
                 },
                 filter: function(feature, attributes) {
                     console.log(feature.properties.year);
-                    console.log(attributes);
-                    if (feature.properties.year === attributes) return true;
+                    if (feature.properties.year === attributes) {return true;}
+                    else if (feature.properties.year !== attributes) {return false;}
                 }
             }).addTo(map);
         }
