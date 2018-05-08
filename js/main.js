@@ -45,14 +45,15 @@ function getTopBrewData(map, top){
                     var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
                     return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
                 },
-                filter: function(feature, attributes) {
-                    console.log(feature.properties.year);
-                    if (feature.properties.year === '2015') {return true;}
-                    else if (feature.properties.year !== '2015') {return false;}
-                }
+                filter: layerFilter
             }).addTo(map);
         }
     })
+}
+
+function layerFilter (feature, attributes) {
+    if (feature.properties.year === '2015') {return true;}
+    else if (feature.properties.year !== '2015') {return false;}
 }
 
 function getChoroplethColor(c) {
