@@ -47,8 +47,8 @@ function getTopBrewData(map, top){
                 },
                 filter: function(feature, attributes) {
                     console.log(feature.properties.year);
-                    if (feature.properties.year === '2015') {return true;}
-                    else if (feature.properties.year !== '2015') {return false;}
+                    if (feature.properties.year === attributes) {return true;}
+                    else if (feature.properties.year !== attributes) {return false;}
                 }
             }).addTo(map);
         }
@@ -172,6 +172,7 @@ function createSequenceControls(map, attributes){
         
         getTopBrewData(map, attributes[index]);
         updateTotalSymbols(map, attributes[index]);
+        updateLegend(map,attributes[index]);
         
     }); 
 
