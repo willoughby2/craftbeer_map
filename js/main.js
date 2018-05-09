@@ -30,34 +30,6 @@ function mapSetup(){
     L.control.layers(null, overlayLayers).addTo(map);
 }
 
-function getTopBrewData(map, top){
-    $.ajax("data/topbreweries.geojson", {
-        dataType: "json",
-        success: function(response){
-            var topMarker = L.icon({
-                    iconUrl: 'lib/images/Beer-icon3.png',
-                    iconSize: [35,35],
-                    iconAnchor: [10,15]
-            });
-            
-            var top = L.geoJSON(response, {
-                pointToLayer: function(feature, latlng) {
-                    var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
-                    return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
-                },
-                filter: layerFilter
-            }).addTo(map);
-        }
-    })
-}
-
-function layerFilter (feature, attributes) {
-    console.log(feature.properties.year);
-    console.log(attributes);
-    if (feature.properties.year === attributes) {return true;}
-    else if (feature.properties.year !== attributes) {return false;}
-}
-
 function getChoroplethColor(c) {
     return c > 1.6 ? '#993404' :
            c > 1.5 ? '#d95f0e' :
@@ -69,7 +41,7 @@ function getChoroplethColor(c) {
 
 function style(feature) {
     return {
-        fillColor: getChoroplethColor(feature.properties.beer_2011),
+        fillColor: getChoroplethColor(feature.properties.breweries_2011),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -86,15 +58,6 @@ function calcTotalRadius(attValue) {
     return radius;
 }
 
-function createTotalSymbols(data, map, attributes){
-    L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            return pointToLayer(feature, latlng, attributes);
-        }
-    }).addTo(map);
-    
-}
-
 function updateTotalSymbols(map, attribute) {
     map.eachLayer(function(layer){
         if (layer.feature && layer.feature.properties[attribute]){
@@ -108,7 +71,7 @@ function updateTotalSymbols(map, attribute) {
             
             var year = attribute.split("_")[1];
             
-            popupContent += "<p><b>Craft Breweries in " + year + ":</b> " + props[attribute];
+            popupContent += "<br><b>Craft Breweries in " + year + ":</b> " + props[attribute];
             
             layer.bindPopup(popupContent, {
                 offset: new L.Point(0,0)
@@ -180,6 +143,29 @@ function createSequenceControls(map, attributes){
 
 };
 
+function setChoroplethChart(feature, c){
+    var values = feature.properties;
+    console.log(values);
+
+    var chartWidth = window.innerWidth * .8,
+        chartHeight = 100;
+    
+    var chart = d3.select("#chart")
+        .append("svg")
+        .attr("width", chartWidth)
+        .attr("height", chartHeight)
+        .attr("class", "chart");
+    
+    var bars = chart.selectAll(".bars")
+        .data(choropleth)
+        .enter()
+        .append("rect")
+        .attr("class", function(d){
+            return "bars " + d.FID;
+        })
+        .attr("width", chartWidth)
+}
+
 function pointToLayer(feature, latlng, attributes){
 
     var attribute = attributes[0];
@@ -201,13 +187,42 @@ function pointToLayer(feature, latlng, attributes){
     var layer = L.circleMarker(latlng, options);
     
     //creates the popup
-    var popupContent = "<br><b>State: </b>" + feature.properties.state_name;
+    var popupContent = "<br><b>State: </b>" + feature.properties.state_name + "<br><b>Craft Breweries in 2011: </b>" + feature.properties.breweries_2011;
     
     //adds the popup info to the circle marker layer
     layer.bindPopup(popupContent);
     
     return layer;
      
+}
+
+function createTotalSymbols(data, map, attributes){
+    L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+            return pointToLayer(feature, latlng, attributes);
+        }
+    }).addTo(map);
+    
+}
+
+function getTopBrewData(map, top){
+    $.ajax("data/topbreweries.geojson", {
+        dataType: "json",
+        success: function(response){
+            var topMarker = L.icon({
+                    iconUrl: 'lib/images/Beer-icon3.png',
+                    iconSize: [35,35],
+                    iconAnchor: [10,15]
+            });
+            
+            var top = L.geoJSON(response, {
+                pointToLayer: function(feature, latlng) {
+                    var popupContent = "<br><b>Brewery Name:</b> " + feature.properties.brewery_name + "<br><b>Location:</b> " + feature.properties.city + ", " + feature.properties.state;
+                    return L.marker(latlng, {icon: topMarker}).bindPopup(popupContent);
+                }
+            }).addTo(map);
+        }
+    })
 }
 
 function getData(map, choropleth){
@@ -217,6 +232,8 @@ function getData(map, choropleth){
         success: function(response){
                 var choropleth = L.geoJSON(response, {style: style}).addTo(map);
                 choropleth.bringToBack();
+            
+            setChoroplethChart(feature);
                 
         }
     });
