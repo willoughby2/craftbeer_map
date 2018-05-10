@@ -50,6 +50,39 @@ function style(feature) {
     };
 }
 
+function setChoroplethChart(response, c){
+    var data = response;
+    
+    var chartWidth = window.innerWidth * .8,
+        chartHeight = 100;
+    
+    var chart = d3.select("#chart")
+        .append("svg")
+        .attr("width", chartWidth)
+        .attr("height", chartHeight)
+        .attr("class", "chart");
+    
+    d3.csv("data/beerconsumption.csv", function(error, data) {
+        data.forEach(function(d) {
+            d.state = d.state;
+            d.beer = +d.beer_2011;
+        })
+    });
+    
+    var bars = svg.selectAll(".bars")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("width", chartWidth / 48)
+        .attr("x", function(d){
+            return i * (chartWidth / 49);
+        })
+        .attr("height", 80)
+        .attr("y", 0);
+        
+}
+
 function calcTotalRadius(attValue) {
     var scaleFactor = 5;
     var area = attValue * scaleFactor;
@@ -143,29 +176,6 @@ function createSequenceControls(map, attributes){
 
 };
 
-function setChoroplethChart(feature, c){
-    var values = feature.properties;
-    console.log(values);
-
-    var chartWidth = window.innerWidth * .8,
-        chartHeight = 100;
-    
-    var chart = d3.select("#chart")
-        .append("svg")
-        .attr("width", chartWidth)
-        .attr("height", chartHeight)
-        .attr("class", "chart");
-    
-    var bars = chart.selectAll(".bars")
-        .data(choropleth)
-        .enter()
-        .append("rect")
-        .attr("class", function(d){
-            return "bars " + d.FID;
-        })
-        .attr("width", chartWidth)
-}
-
 function pointToLayer(feature, latlng, attributes){
 
     var attribute = attributes[0];
@@ -231,10 +241,9 @@ function getData(map, choropleth){
         url: "data/map_beercon.geojson",
         success: function(response){
                 var choropleth = L.geoJSON(response, {style: style}).addTo(map);
-                choropleth.bringToBack();
+                choropleth.bringToBack(); 
             
-            setChoroplethChart(feature);
-                
+            setChoroplethChart(response);
         }
     });
 }

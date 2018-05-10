@@ -1,4 +1,4 @@
-id,state,2011_consumption,2012_consumption,2013_consumption,2014_consumption,2015_consumption ,2016_consumption
+id,state,beer_2011,beer_2012,beer_2013,beer_2014,beer_2015,beer_2016
 1,Alabama,1.14,1.16,1.14,1.13,1.12,1.09
 2,Arizona,1.15,1.14,1.12,1.18,1.16,1.14
 3,Arkansas,0.98,1,1,0.96,0.97,0.93
